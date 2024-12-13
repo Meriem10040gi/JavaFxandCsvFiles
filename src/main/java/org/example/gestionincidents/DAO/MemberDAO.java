@@ -7,4 +7,5 @@ import java.util.List;
 public interface MemberDAO {
     void insere(Member e) throws SQLException;
     List<Member> chargerListMembers() throws SQLException;
+    boolean isExist(int id) throws SQLException;
 }

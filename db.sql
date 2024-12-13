@@ -15,8 +15,9 @@ CREATE TABLE Member (
 
 -- Création de la table Commande
 CREATE TABLE Commande (
-                          pref VARCHAR(255) PRIMARY KEY,      -- Identifiant unique pour chaque commande
+                          ref VARCHAR(255) PRIMARY KEY,      -- Identifiant unique pour chaque commande
                           status VARCHAR(255),           -- Référence au client
+                          description VARCHAR(255),           -- Référence au client
                           supervisor_id int ,               -- Statut de la commande (ex: 'En attente', 'Livrée', etc.)
                           time BIGINT NOT NULL,        -- Date de création de la commande (en timestamp Unix)
 

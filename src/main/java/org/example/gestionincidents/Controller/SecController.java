@@ -7,13 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.gestionincidents.DAO.MemberDAO;
 import org.example.gestionincidents.DAO.MemberDAOImpl;
+import org.example.gestionincidents.HelloApplication;
 import org.example.gestionincidents.Model.Member;
 import org.example.gestionincidents.Service.MembreService;
 import org.example.gestionincidents.Utils.Browser;
@@ -49,6 +50,8 @@ public class SecController {
     private TableColumn<Member, String> emailColumn;
     @FXML
     private TextField file;
+    @FXML
+    private Button incidentbtn;
 
     MemberDAO memberDAO = new MemberDAOImpl();
     MembreService membreService = new MembreService();
@@ -139,11 +142,12 @@ public class SecController {
         MemberTable.setItems(MemberList);
     }
 
-    public void InsererDataMembers(){
+    public void InsertDataMembers() throws SQLException {
         if(file!=null && !file.getText().equals("")){
             String path = file.getText();
             Set<Member> members = membreService.chargerListeMembre(path);
             membreService.inser(members);
+            initialize();
         }
     }
     public void BrowsFileMembers(ActionEvent actionEvent) {
@@ -168,17 +172,30 @@ public class SecController {
                 Semail,
                 Sphone
         );
-        m.setIdentifiant(m.hashCode());
+        int h =m.hashCode();
+        if(h<0) h=-1*h;
+        m.setIdentifiant(h);
         MemberDAO md = new MemberDAOImpl();
         try{
             md.insere(m);
+            nom.clear();
+            prenom.clear();
+            email.clear();
+            phone.clear();
+            initialize();
         }
         catch(SQLException e){
             System.out.println("Erreur lors d'ajout de l'utilisateur"+e.getMessage());
         }
     }
 
-    public void IncidentView(ActionEvent actionEvent) {
+    public void IncidentView(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/Views/HomePage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = (Stage) incidentbtn.getScene().getWindow();
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
     }
 }
 

@@ -55,5 +55,18 @@ public class MemberDAOImpl implements MemberDAO {
         return list;
     }
 
+    @Override
+    public boolean isExist(int id) throws SQLException {
+        BD.connecte("MemberIncidents","root","");
+        String checkid = "SELECT COUNT(*) FROM member WHERE id = ?";
+        PreparedStatement checkId = BD.connexion.prepareStatement(checkid);
+        checkId.setInt(1, id);
+        ResultSet rs = checkId.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

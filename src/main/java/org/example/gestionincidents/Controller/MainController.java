@@ -6,16 +6,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.gestionincidents.DAO.IncidentDAO;
 import org.example.gestionincidents.DAO.IncidentDAOImpl;
+import org.example.gestionincidents.HelloApplication;
 import org.example.gestionincidents.Model.Incident;
 import org.example.gestionincidents.Model.Member;
 import org.example.gestionincidents.DAO.MemberDAO;
 import org.example.gestionincidents.DAO.MemberDAOImpl;
+import org.example.gestionincidents.Service.IncidentService;
 import org.example.gestionincidents.Service.MembreService;
 import org.example.gestionincidents.Utils.Browser;
 import org.example.gestionincidents.Utils.TimeConverteser;
@@ -37,7 +41,8 @@ public class MainController {
     private TextField email;
     @FXML
     private TableView<Incident> incidentTable;
-
+    @FXML
+    private Button memberbtn;
     @FXML
     private TableColumn<Incident, String> refColumn;
     @FXML
@@ -55,6 +60,7 @@ public class MainController {
 
     IncidentDAO incidentDAO = new IncidentDAOImpl();
     MembreService membreService = new MembreService();
+    IncidentService incidentService = new IncidentService();
 
     public void initialize() throws SQLException {
         List<Incident> Incidents = incidentDAO.chargerListIncidents();
@@ -151,6 +157,15 @@ public class MainController {
             file2.clear();
         }
     }
+    public void InsererDataIncidents() throws SQLException {
+        if(file!=null && !file.getText().equals("")){
+            String path = file.getText();
+            Set<Incident> incidents = incidentService.chargerListeIncidents(path);
+            incidentService.inser(incidents);
+            file.clear();
+            initialize();
+        }
+    }
     public void BrowsFileMembers(ActionEvent actionEvent) {
         Browser b = new Browser();
         file2.setText(b.Find("csv"));
@@ -159,11 +174,6 @@ public class MainController {
     public void BrowsFileIncidents(ActionEvent actionEvent) {
         Browser b = new Browser();
         file.setText(b.Find("csv"));
-    }
-
-    public void InsertData(ActionEvent actionEvent) throws IOException, SQLException {
-
-        initialize();
     }
 
     public void SignOut(ActionEvent actionEvent) {
@@ -183,16 +193,30 @@ public class MainController {
                 Semail,
                 Sphone
         );
-        m.setIdentifiant(m.hashCode());
+        int h =m.hashCode();
+        if(h<0) h=-1*h;
+        m.setIdentifiant(h);
         MemberDAO md = new MemberDAOImpl();
         try{
             md.insere(m);
+            nom.clear();
+            prenom.clear();
+            email.clear();
+            phone.clear();
+            initialize();
         }
         catch(SQLException e){
             System.out.println("Erreur lors d'ajout de l'utilisateur"+e.getMessage());
         }
     }
 
-    public void MemberView(ActionEvent actionEvent) {
-    }
+    public void MemberView(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/Views/HomePage2.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = (Stage) memberbtn.getScene().getWindow();
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();    }
+
+
 }

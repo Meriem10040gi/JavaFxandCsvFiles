@@ -17,7 +17,7 @@ public class IncidentDAOImpl implements IncidentDAO {
     public void inserer(Incident e) throws SQLException {
         BD.connecte("MemberIncidents","root","");
         String sql="insert into incident (ref,status,time,description,supervisor_id) values (?,?,?,?,?)";
-        String checkid = "SELECT COUNT(*) FROM member WHERE ref LIKE ?";
+        String checkid = "SELECT COUNT(*) FROM incident WHERE ref LIKE ?";
         PreparedStatement checkId = BD.connexion.prepareStatement(checkid);
         checkId.setString(1, e.getReference());
         ResultSet rs = checkId.executeQuery();
@@ -70,4 +70,5 @@ public class IncidentDAOImpl implements IncidentDAO {
         BD.close();
         return list;
     }
+
 }
