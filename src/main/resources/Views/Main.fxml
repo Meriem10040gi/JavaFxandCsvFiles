@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gestionincidents.Controller.MainController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: rgb(95,168,211,0.5); -fx-border-color: rgb(95,168,211); -fx-border-radius: 4;">
+               <children>
+                  <TextField fx:id="nom" layoutX="212.0" layoutY="128.0" prefHeight="36.0" prefWidth="300.0" promptText="Nom" style="-fx-background-color: #FFFFFF; -fx-border-radius: 3; -fx-border-color: gray;" />
+                  <TextField fx:id="phone" layoutX="212.0" layoutY="346.0" prefHeight="36.0" prefWidth="300.0" promptText="Phone" style=" -fx-background-color:gray;-fx-border-color: gray;-fx-border-width: 0; -fx-border:none;-fx-label-padding:3 3 3 3;-fx-background-color: white;-fx-tick-label-fill: 20 " />
+                  <Label layoutX="285.0" layoutY="31.0" text="New Membre" textFill="black">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="prenom" layoutX="212.0" layoutY="198.0" prefHeight="36.0" prefWidth="300.0" promptText="Prenom" style="-fx-background-color: #FFFFFF; -fx-border-radius: 3; -fx-border-color: gray;" />
+               <TextField fx:id="email" layoutX="212.0" layoutY="270.0" prefHeight="36.0" prefWidth="300.0" promptText="Email" style="-fx-background-color: #FFFFFF; -fx-border-radius: 3; -fx-border-color: gray;" />
+                  <Button fx:id="addbtn" layoutX="263.0" layoutY="451.0" mnemonicParsing="false" onAction="#AddMember" prefHeight="38.0" prefWidth="217.0" style="-fx-background-color: rgb(95,168,211); -fx-border-color: rgb(95,168,211); -fx-border-width: 0;" text="Inserer">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
